@@ -17,7 +17,41 @@
     
     <main>
         <section>
-            <h2>Api Service</h2>
+            <h2>API Service</h2>
+            <p>This section details the available HTTP methods used in the API to perform various operations on resources.</p>
+
+            <h3>GET Method (Fetch User Data)</h3>
+            <p>Used the GET method to retrieve user name and email from Firebase Realtime Database.</p>
+            <pre><code>
+
+fetchUserData(userId)
+    .then(data =&gt; {
+        // Handle retrieved user data (name and email)
+        const userName = data.name;
+        const userEmail = data.email;
+        console.log(`User Name: ${userName}, User Email: ${userEmail}`);
+    })
+    .catch(error =&gt; {
+        // Handle error
+        console.error(error);
+    });
+            </code></pre>
+
+            <h3>POST Method (Register User)</h3>
+            <p>Use the POST method to register a new user in Firebase Realtime Database.</p>
+            <pre><code>
+// Register a new user using POST method
+registerUser(userData)
+    .then(response =&gt; {
+        // Handle registration success
+        console.log(`User registered successfully. User ID: ${response.data.userId}`);
+    })
+    .catch(error =&gt; {
+        // Handle error
+        console.error(error);
+    });
+            </code></pre>
+       
            <p>This function is responsible for fetching analytics data from an API endpoint. It requires the following dependencies:</p>
            <ul>
             <li>axios: This is a promise-based HTTP client that will be used to make the API request.</li>
