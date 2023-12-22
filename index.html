@@ -110,6 +110,22 @@
     }
 </code></pre>
 
+<h3>PROTECTED ROUTE</h3>
+<p>This component is used for providing a protected route such that only Admin can access this by verifying through particular credentials and get access to Dashboard</p>
+<code>
+    const ProtectedRoute = ({ component: Component, ...rest }) => {
+      const { currentUser } = useAuth();
+    
+      // Replace 'isAdmin' with the actual logic to check if the user is an admin
+      const isAdmin = currentUser && currentUser.role === "admin";
+    
+      // If the user is an admin, render the "Component" with the given "rest" props
+      // If not, redirect to the home page
+      return isAdmin ? ;
+    };
+    
+    export default ProtectedRoute;
+    </code>
 
 
     </main>
