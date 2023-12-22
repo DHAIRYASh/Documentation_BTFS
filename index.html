@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>By the FireSide Stories Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>By the FireSide Stories Documentation</h1>
+    </header>
+    <h2>App</h2>
+    <p>The main component that renders the entire application</p>
+    <nav>
+        <h2>Table of Contents</h2>
+        
+            <li><a href="index.html">App</a></li>
+           
+            <li class="dropdown">
+                Components
+                <ul class="dropdown-content">
+                    <li><a href="signUp.html">SignUp Page</a></li>
+                    <li><a href="login.html">Login Page</a></li>
+                    <li><a href="discover.html">Discover Books Page</a></li>
+                    <li><a href="auth.html">Auth Page Components</a></li>
+                    <li><a href="profile.html">Profile Page Components</a></li>
+                    <li><a href="book.html">Book Data</a></li>
+                    <li><a href="explore.html">Explore BTFS Page</a></li>
+                    <li><a href="address.html">Address Form Page</a></li>
+                    <li><a href="pay.html">Payment Form Page</a></li>
+                    <li><a href="review.html">Review Page</a></li>
+                    <li><a href="checkout.html">Checkout Page</a></li>
+                    <li><a href="future.html">Future Scope Page</a></li>
+                
+                </ul>
+            </li>
+           
+            <li class="dropdown">
+                Auth Context
+                <ul class="dropdown-content">
+                    <li><a href="firebase.html">Firebase Config</a></li>
+                    <li><a href="api.html">Api Service</a></li>
+                
+                </ul>
+            </li>
+            <li class="dropdown">
+                Dashboard
+                <ul class="dropdown-content">
+                    <li><a href="analytics.html">Analytics Dashboard </a></li>
+                    <li><a href="sidebar.html">Dashboard Sidebar</a></li>
+                    <li><a href="newUser.html">Dashboard New User</a></li>
+                    <li><a href="activeUser.html">Dashboard Active User</a></li>
+                    <li><a href="activeOrders.html">Dashboard Orders</a></li>
+                </ul>
+            </li>
+      
+        </ul>
+    </nav>
+    
+    <main>
+      <h3>DEPENDENCIES</h3>
+      <ul>
+        <li>React</li>
+        <li>react-router-dom</li>
+        <li>firebase/auth</li>
+        <li>react-responsive-carousel</li>
+      </ul>
+      <h3>IMPORTS</h3>
+      <pre><code>
+        <span class="code-keyword">import</span> React, { useState } <span class="code-keyword">from</span> <span class="code-string">"react"</span>;
+        <span class="code-keyword">import</span> <span class="code-string">"./App.css"</span>;
+        <span class="code-keyword">import</span> LoginPage <span class="code-keyword">from</span> <span class="code-string">"./components/LoginPage"</span>;
+        <span class="code-keyword">import</span> SignUpPage <span class="code-keyword">from</span> <span class="code-string">"./components/SignUpPage"</span>;
+        <span class="code-keyword">import</span> ExploreBtfs <span class="code-keyword">from</span> <span class="code-string">"./components/ExploreBtfs"</span>;
+        <span class="code-keyword">import</span> Navbar <span class="code-keyword">from</span> <span class="code-string">"./components/navbar"</span>; <span class="code-comment">// &lt;-- Import the Navbar component</span>
+        <span class="code-keyword">import</span> { AuthProvider } <span class="code-keyword">from</span> <span class="code-string">"./config/AuthContext"</span>;
+        <span class="code-keyword">import</span> {
+            HashRouter <span class="code-keyword">as</span> Router,
+            Route,
+            Routes,
+            useLocation,
+            Link,
+        } <span class="code-keyword">from</span> <span class="code-string">"react-router-dom"</span>;
+        <span class="code-keyword">import</span> { getAuth, onAuthStateChanged } <span class="code-keyword">from</span> <span class="code-string">"firebase/auth"</span>;
+        <span class="code-keyword">import</span> DiscoverBooksPage <span class="code-keyword">from</span> <span class="code-string">"./components/DiscoverBooksPage"</span>;
+        <span class="code-keyword">import</span> { Carousel } <span class="code-keyword">from</span> <span class="code-string">"react-responsive-carousel"</span>; 
+        <span class="code-keyword">import</span> { CartProvider } <span class="code-keyword">from</span> <span class="code-string">"./components/CartContext"</span>;
+        <span class="code-keyword">import</span> Checkout <span class="code-keyword">from</span> <span class="code-string">"./components/checkout"</span>;
+        <span class="code-keyword">import</span> ProfilePage <span class="code-keyword">from</span> <span class="code-string">"./components/ProfilePage"</span>; 
+        <span class="code-keyword">import</span> AnalyticsDashboard <span class="code-keyword">from</span> <span class="code-string">"./components/Dashboard/Dashboard"</span>; 
+        <span class="code-keyword">import</span> ProtectedRoute <span class="code-keyword">from</span> <span class="code-string">"./components/protectedRoute"</span>;
+    
+        <span class="code-keyword">import</span> FolkloreArt <span class="code-keyword">from</span> <span class="code-string">"./components/folkloreart"</span>;
+        <span class="code-keyword">import</span> Footer <span class="code-keyword">from</span> <span class="code-string">"./components/Footer"</span>;
+        <span class="code-keyword">import</span> Cart <span class="code-keyword">from</span> <span class="code-string">"./components/Cart"</span>;
+    </code></pre>
+    
+<h3>CONDITIONALNAVBAR</h3>
+<p>A component that conditionally renders the Navbar based on the current location.</p>
+<pre><code>
+    <span class="code-function">function</span> ConditionalNavbar() {
+        <span class="code-keyword">const</span> location = <span class="code-function">useLocation</span>();
+
+        <span class="code-keyword">if</span> (location.pathname === <span class="code-string">"/login"</span> || location.pathname === <span class="code-string">"/signup"</span>) {
+            <span class="code-keyword">return</span> <span class="code-literal">null</span>; <span class="code-comment">// Don't render the Navbar on these paths</span>
+        }
+
+        <span class="code-keyword">return</span> &lt;Navbar /&gt;;
+    }
+</code></pre>
+
+
+
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

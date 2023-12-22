@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Users Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Active Users Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Active Users Today</h2>
+          <p>The ActiveUsersTodayBox component is a React functional component that displays a table of active users for the current day. It retrieves user data from a Firebase Firestore collection and renders it in a styled component.</p>
+        <h3>DEPENDENCIES</h3>
+        <code>import React, { useEffect, useState } from "react";
+            import { collection, query, where, getDocs } from "firebase/firestore";
+            import { db } from "../../config/firebase-config";
+            import styles from "./ActiveUsersTodayBox.module.css"</code>
+            <p>Ensure that you have the correct path to your Firebase configuration in the firebase-config.js file.</p>
+            <h3>COMPONENT FUNCTIONALITY</h3>
+            <p>The ActiveUsersTodayBox component fetches the active user data from the Firestore database and renders it in a table. It also includes a button to toggle between showing all active users and showing only a subset (up to 4) of the active users.</p>
+        <h3>State Variables</h3>
+        <p>The component defines two state variables using the useState hook:</p>
+        <ul>
+            <li>activeUsers: Represents the array of active user data to be displayed.</li>
+            <li>showAll: Represents whether to show all active users or only a subset (up to 4) of active users in the table.</li>
+        </ul>
+        <h2>useEffect Hook</h2>
+            <p>The <a class="code-function">useEffect</a> hook is used to fetch the active user data from Firestore when the component is mounted. It runs the <a class="code-function">fetchActiveUsers</a> function, which performs the following steps:</p>
+            <ul>
+                <li>Creates a <a class="code-function">startOfToday</a> Date object that represents the start of the current day.</li>
+                <li>Creates a Firestore query object (<a class="code-function">q</a>) that retrieves documents from the "users" collection where the "lastActive" field is greater than or equal to <a class="code-function">startOfToday</a>.</li>
+                <li>Executes the query and retrieves the query snapshot.</li>
+                <li>Maps the query snapshot documents to an array of objects containing the relevant user data, including the "displayName", "email", and formatted "lastActive" values.</li>
+                <li>Sets the <a class="code-function">activeUsers</a> state variable to the retrieved user data.</li>
+            </ul>
+            <p>The empty dependency array <a class="code-function"></a> ensures that the effect only runs once when the component is mounted.</p>
+            
+            <h2>toggleShowAll Function</h2>
+            <p>The <a class="code-function">toggleShowAll</a> function is called when the "Show More" button is clicked to toggle the <a class="code-function">showAll</a> state variable. It sets the opposite value of <a class="code-function">showAll</a> using the <a class="code-function">setShowAll</a> state setter function.</p>
+       
+        <h3>Rendered JSX</h3>
+        <pre><code>
+            &lt;div className={styles.infoBox}&gt;
+              &lt;h3 className={styles.header}&gt;Active Users Today&lt;/h3&gt;
+              &lt;div className={styles.tableWrapper}&gt;
+                &lt;table className={styles.table}&gt;
+                  &lt;thead&gt;
+                    &lt;tr&gt;
+                      &lt;th className={styles.th}&gt;Date&lt;/th&gt;
+                      &lt;th className={styles.th}&gt;Name&lt;/th&gt;
+                      &lt;th className={styles.th}&gt;Email&lt;/th&gt;
+                      &lt;th className={styles.th}&gt;Last Active&lt;/th&gt;
+                    &lt;/tr&gt;
+                  &lt;/thead&gt;
+                  &lt;tbody&gt;
+                    {showAll ? activeUsers : activeUsers.slice(0, 4)).map(
+                      (user, index) =&gt; (
+                        &lt;tr key={index} className={styles.tr}&gt;
+                          &lt;td className={styles.td}&gt;
+                            {new Date().toLocaleDateString()}
+                          &lt;/td&gt;
+                          &lt;td className={styles.td}&gt;{user.displayName}&lt;/td&gt;
+                          &lt;td className={styles.td}&gt;{user.email}&lt;/td&gt;
+                          &lt;td className={styles.td}&gt;{user.lastActive}&lt;/td&gt;
+                        &lt;/tr&gt;
+                      )
+                    )}
+                  &lt;/tbody&gt;
+                &lt;/table&gt;
+                {activeUsers.length &gt; 4 &amp;&amp; (
+                  &lt;button className={styles.showMoreButton} onClick={toggleShowAll}&gt;
+                    {showAll ? "Show Less" : `Show All (${activeUsers.length - 4} More)`}
+                  &lt;/button&gt;
+                )}
+              &lt;/div&gt;
+              {activeUsers.length === 0 &amp;&amp; (
+                &lt;p className={styles.noActiveUsers}&gt;No active users today.&lt;/p&gt;
+              )}
+            &lt;/div&gt;
+            </code></pre>
+            
+        <p>The structure consists of a containing div with the infoBox class. Inside this div, there is an h3 element with the header class, displaying the title "Active Users Today".</p>
+        <p>The active user data is rendered in a table structure. The table element has the table class. The thead element contains a single row with th elements representing the table headers ("Date", "Name", "Email", "Last Active").</p>
+    <p>The tbody element iterates over the activeUsers array (either all users or a subset depending on the value of showAll) using the map function. For each user, it renders a tr element with the tr class and four td cells representing the date, name, email, and last active time.</p>    
+    <p>If there are more than 4 active users, a "Show More" button is displayed using a conditional rendering. Clicking the button calls the toggleShowAll function.</p>
+   <p>Finally, if there are no active users, a message is displayed using the noActiveUsers class.</p>
+</section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Component Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Signup Component Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Description</h2>
+            <p>The SignUpPage component is responsible for rendering the sign-up form and handling user sign-up functionality.</p>
+        </section>
+
+        <section>
+            <h2>Imports</h2>
+            <p>Various elements are imported for use within the SignUpPage component:</p>
+            <ul>
+                <li>React package for using React components and hooks.</li>
+                <li>useState and useEffect hooks from React for managing component state and side effects.</li>
+                <li>SignUpPage.css stylesheet for styling the sign-up page.</li>
+                <li>Link component from react-router-dom library for creating links to navigate between pages.</li>
+                <li>Auth related functions and objects from the firebase/auth package for user authentication.</li>
+                <li>doc and setDoc functions from the firebase/firestore package for interacting with Firestore database.</li>
+                <li>The useAuth hook from ../config/AuthContext.js file for accessing the authentication context.</li>
+                <li>db object from ../config/firebase-config file for accessing Firestore database.</li>
+                <li>serverTimestamp function from the firebase/firestore package for generating server timestamps.</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Functions</h2>
+            <h3>SignUpPage()</h3>
+            <p>Main function/component rendering the sign-up form and handling the user sign-up functionality.</p>
+            
+            <h4>Variables</h4>
+            <ul>
+                <li><b>auth:</b> The auth object from getAuth() is assigned to this variable.</li>
+                <li><b>navigate:</b> The useNavigate hook is used to get the navigation function and assign it to this variable.</li>
+                <li><b>email:</b> State variable for storing the user's email address.</li>
+                <li><b>password:</b> State variable for storing the user's password.</li>
+                <li><b>confirmPassword:</b> State variable for storing the user's confirmed password.</li>
+                <li><b>firstName:</b> State variable for storing the user's first name.</li>
+                <li><b>lastName:</b> State variable for storing the user's last name.</li>
+                <li><b>error:</b> State variable for storing any error messages during sign-up.</li>
+                <li><b>showPassword:</b> State variable for toggling the visibility of the password input.</li>
+                <li><b>showConfirmPassword:</b> State variable for toggling the visibility of the confirm password input.</li>
+                <li><b>setCurrentUser:</b> The setCurrentUser function from useAuth hook is assigned to this variable.</li>
+            </ul>
+            
+            <h4>Side Effects</h4>
+            <p>The useEffect hook subscribes to the auth object's onAuthStateChanged event to listen for changes in the user's authentication state.</p>
+            
+            <h4>Handler Functions</h4>
+            <b class="function-name">handleSignUp():</b> 
+            <p> This function is called when the user clicks the "Sign Up" button. It checks if the entered password and confirmed password match. If they don't match, an error message is displayed. If they match, the user is signed up using the createUserWithEmailAndPassword function from the auth object. After successful sign-up, the user's data is saved to Firestore using the setDoc function. The user's display name is updated using the updateProfile function. The setCurrentUser function is called with the user data and the user is navigated to the home page. If there is an error during sign-up, an error message is displayed.</p>
+            <b class="function-name">handleAppleSignUp():</b> 
+            <p>This function is called when the user clicks the sign-up button for Apple. It creates a new OAuthProvider instance with the provider ID for Apple. It then checks the platform (iOS, Android, or web) and uses the appropriate sign-in method (signInWithRedirect or signInWithPopup) from the auth object. After successful sign-up, the user data is set in the authentication context and Firestore, and the user is navigated to the home page. If there is an error during sign-up, an error message is displayed.</p>
+            <b class="function-name">handleGoogleSignUp():</b> 
+            <p>This function is called when the user clicks the sign-up button for Google. It creates a new GoogleAuthProvider instance. It then signs the user in with the pop-up method using the signInWithPopup function from the auth object. After successful sign-up, the user data is set in the authentication context and Firestore, and the user is navigated to the home page. If there is an error during sign-up, an error message is displayed.</p>
+            <b class="function-name">handleKeyPress(e):</b> 
+            <p>This function is called when a key is pressed. If the Enter key is pressed, it calls the handleSignUp function.</p>
+            
+            <h4>Return</h4>
+            <p>Outputs the JSX elements for the sign-up form and related components.</p>
+        </section>
+        
+        <section>
+            <h2>Component Export</h2>
+            <p>The SignUpPage component is exported as the default component for use in other parts of the application.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

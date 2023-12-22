@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Payment Form Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Payment Form</h2>
+        <p>The PaymentForm component is a form used for capturing payment information. It includes input fields for the cardholder's name, card number, expiration date, and CVV number.</p>
+       
+    <h4>Dependencies</h4>
+    <ul>
+        <li>React</li>
+        <li>useState from React</li>
+        <li>'./PaymentForm.css</li>
+    </ul>
+    <h3>USAGE</h3>
+    <code>import React, { useState } from 'react';
+        import './PaymentForm.css';
+        
+        export default function PaymentForm({ onChange }) {
+          // Component implementation
+        }</code>
+        <h3>PROPS</h3>
+        <p>onChange: A function passed as a prop to the PaymentForm component. It is called whenever the value of any input field in the form changes. The function takes two arguments: the name of the field that changed, and the new value of the field.</p>
+    
+    <h3>STATE</h3>
+    <ul>
+        <li>cardNumber: A state variable that holds the value of the card number input field.</li>
+        <li>expDate: A state variable that holds the value of the expiration date input field.</li>
+        <li>cvv: A state variable that holds the value of the CVV number input field.</li>
+        <li>cardName: A state variable that holds the value of the cardholder's name input field.</li>
+    </ul>
+    <h2>Methods</h2>
+    <ul>
+        <li><strong>handleCardNumberChange:</strong> A function called whenever the card number input field value changes. It formats the input and updates state.</li>
+        <li><strong>handleCardNameChange:</strong> A function called whenever the cardholder's name input field value changes. It formats the input and updates state.</li>
+        <li><strong>handleCvvChange:</strong> A function called whenever the CVV number input field value changes. It formats the input and updates state.</li>
+        <li><strong>handleExpDateChange:</strong> A function called whenever the expiration date input field value changes. It formats the input and updates state.</li>
+    </ul>
+
+    <h2>Rendered Output</h2>
+    <p>The PaymentForm component renders a div element with the class name <b>"payment-form"</b>. Inside the div, it renders:</p>
+    <ul>
+        <li>A <b>h2</b> element with the class name <b>"form-title"</b> and the text "Payment method".</li>
+        <li>A <b>div</b> element with the class name <b>"grid"</b>.</li>
+    </ul>
+    <p>Inside the <b>grid</b> div, there are four div elements with the class name <b>"grid-item"</b> representing the input fields:</p>
+    <ul>
+        <li><strong>Cardholder's Name Input Field:</strong> An input of type "text" with id <b>"cardName"</b>, name <b>"cardName"</b>, placeholder "Name on Card", value bound to cardName state variable, autoComplete set to <b>"cc-name"</b>, and an onChange event listener calling handleCardNameChange.</li>
+        <li><strong>Card Number Input Field:</strong> An input similar to the cardholder's name input field, but with id <b>"cardNumber"</b>, name <b>"cardNumber"</b>, placeholder "Card Number", autoComplete set to <b>"cc-number"</b>, and onChange event listener calling handleCardNumberChange.</li>
+        <li><strong>Expiration Date Input Field:</strong> An input similar to the previous input fields, but with id <b>"expDate"</b>, name <b>"expDate"</b>, placeholder "MM/YY", autoComplete set to <b>"cc-exp"</b>, and onChange event listener calling handleExpDateChange.</li>
+        <li><strong>CVV Number Input Field:</strong> An input similar to the previous input fields, but with id <b>"cvv"</b>, name <b>"cvv"</b>, placeholder "CVV", autoComplete set to <b>"cc-csc"</b>, and onChange event listener calling handleCvvChange. Includes a small element with the text "Last three digits on signature strip".</li>
+    </ul>
+
+    <p>The PaymentForm component relies on the styles defined in the 'PaymentForm.css' file. The specific styles are not provided in this documentation.</p>
+
+    
+    </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

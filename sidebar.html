@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Sidebar Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Dashboard Sidebar Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Sidebar Component</h2>
+            <p>This component is responsible for rendering the sidebar menu in the dashboard.</p>
+            
+            <h3>Import Statements</h3>
+            <pre><code>
+import React from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import "./Slidebar.css"; // Import the sidebar styles
+            </code></pre>
+            
+            <h3>Function Component</h3>
+            <pre><code>
+const Sidebar = () => {
+    ...
+};
+export default Sidebar;
+            </code></pre>
+            
+            <h4>Hooks</h4>
+            <ul>
+                <li><span class="code-function">useLocation</span>: Hook from react-router-dom to access the location object.</li>
+            </ul>
+            
+            <h4>Helper Function</h4>
+            <ul>
+                <li><span class="code-function">checkIsActive(path)</span>: Determines if the current route matches the provided path.</li>
+            </ul>
+            
+            <h4>JSX Markup</h4>
+            <pre><code>
+return (
+    &lt;div className="sidebar"&gt;
+        &lt;NavLink to="/dashboard" className={({ isActive }) =&gt; "nav-link" + (isActive ? " active" : "")} end&gt;
+            Dashboard
+        &lt;/NavLink&gt;
+        &lt;NavLink to="/dashboard/orders" className={checkIsActive("/dashboard/orders") ? "nav-link active" : "nav-link"}&gt;
+            Orders
+        &lt;/NavLink&gt;
+        &lt;NavLink to="/dashboard/users" className={checkIsActive("/dashboard/users") ? "nav-link active" : "nav-link"}&gt;
+            Users
+        &lt;/NavLink&gt;
+    &lt;/div&gt;
+);
+            </code></pre>
+            
+            <h3>Sidebar Structure</h3>
+            <p>The Sidebar component renders a <span class="code-function">&lt;div&gt;</span> element with the class name <span class="code-function">"sidebar"</span>. Inside the <span class="code-function">&lt;div&gt;</span>, there are three <span class="code-function">&lt;NavLink&gt;</span> components representing different menu items:</p>
+            <ul>
+                <li>The first <span class="code-function">&lt;NavLink&gt;</span> to "/dashboard" uses a function to conditionally add the "active" class.</li>
+                <li>The second and third <span class="code-function">&lt;NavLink&gt;</span> components use the <span class="code-function">checkIsActive</span> function to determine the active route.</li>
+            </ul>
+            <p>The Sidebar component is exported as the default export of the module.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

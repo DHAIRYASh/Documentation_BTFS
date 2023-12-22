@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page Component Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Profile Page Component Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>ProfilePage Component</h2>
+            <p>A React component for rendering the profile page of a user.</p>
+            
+            <h3>Imports</h3>
+            <pre><code>
+                <span class="code-keyword">import</span> React, { useState, useEffect } <span class="code-keyword">from</span> <span class="code-string">'react'</span>;<br>
+                <span class="code-keyword">import</span> { useAuth } <span class="code-keyword">from</span> <span class="code-string">'../config/AuthContext'</span>;<br>
+                <span class="code-keyword">import</span> { useNavigate } <span class="code-keyword">from</span> <span class="code-string">'react-router-dom'</span>;<br>
+                <span class="code-keyword">import</span> { doc, getDoc } <span class="code-keyword">from</span> <span class="code-string">'firebase/firestore'</span>;<br>
+                <span class="code-keyword">import</span> db <span class="code-keyword">from</span> <span class="code-string">'../config/firebase-config'</span>;<br>
+                <span class="code-keyword">import</span> <span class="code-string">'./ProfilePage.css'</span>;
+            </code></pre>
+
+            <h3>Component Definition</h3>
+            <p><code>ProfilePage()</code> is a functional component that renders the profile page.</p>
+
+            <h3>Variables</h3>
+           <p> <b  class="function-name">currentUser</b> : The current authenticated user.</p>
+           
+           <p> <b  class="function-name">logout</b> : A function to log out the user.</p>
+           
+           <p> <b  class="function-name">sendResetPasswordEmail</b> : A function to send a reset password email.</p>
+           
+           <p> <b  class="function-name">navigate</b> : A function to navigate to a different page.</p>
+           
+           <p> <b  class="function-name">userDetails</b> : The details of the user.</p>
+           <p> <b  class="function-name">resetEmailStatus</b> : The status of the reset password email.</p>
+           <p> <b  class="function-name">ed2</b> : The URL of the user's profile picture.</p>
+           <p> <b  class="function-name">ed3</b> : The URL of the second card image.</p>
+           <p> <b  class="function-name">ed4</b> : The URL of the third card image.</p>
+           <p> <b  class="function-name">displayName</b> : The display name of the user.</p>
+           <p> <b  class="function-name">firstname</b> : The first name of the user.</p>
+           <p> <b  class="function-name">lastname</b> : The last name of the user.</p>
+           <p> <b  class="function-name">logoutImageUrl</b> : The URL of the logout image.</p>
+         
+           
+            <h3>useEffect()</h3>
+            <p>An effect hook that fetches user details from Firestore when the current user changes.</p>
+            <h3>handleResetPassword()</h3>
+            <p>A function that sends a reset password email to the current user's email address. Sets the reset email status based on whether the email was sent successfully or not.</p>
+
+            <h3>userLogout()</h3>
+            <p>A function that logs out the current user and navigates to the login page.</p>
+
+
+           
+            <h3>Rendered JSX</h3>
+            <ul>
+                <li>A <a  class="function-name">div</a> element with a class of "profilePage-container" that contains the following elements:</li>
+                <li>A <a  class="function-name">div</a> element with a class of "profilePage-welcome-header" that contains an h1 element with the text "Welcome {displayName}".</li>
+                <li>A <a  class="function-name">div</a> element with a class of "profilePage-user-details-section" that contains the following elements:</li>    
+                <li>A <a  class="function-name">div</a>  element with a class of "profilePage-profile-picture-section" that contains an img element with the source set to the value of ed2 and alt text set to "Profile" and a class of "profilePage-profile-picture".</li> 
+                <li>A <a  class="function-name">div</a>  element with a class of "profilePage-user-info" that contains the following elements:</li> 
+                <li>A <a  class="function-name">p</a>  element with the text "First Name: {firstName}"</li> 
+                <li>A <a  class="function-name">p</a> element with the text "Last Name: {lastName}".</li> 
+                <li>A <a  class="function-name">p</a>  element with the text "Email: {currentUser.email}".</li> 
+                <li>A <a  class="function-name">div</a> element with a class of "profilePage-card" that contains an img element with the source set to the value of ed4 and alt text set to "Cart" and a class of "profilePage-cardImage" and a button element with the text "Go To Cart" and an onClick event handler that navigates to '/cart'.</li>
+                <li>A <a  class="function-name">div</a> element with a class of "profilePage-card" that contains an img element with the source set to the value of ed3 and alt text set to "Reset Password" and a class of "profilePage-cardImage" and a button element with the text "Reset Password" and an onClick event handler that calls the handleResetPassword function and a p element with the class "profilePage-status-message" and text set to resetEmailStatus if it exists.</li>
+                <li>A <a  class="function-name">div</a> element with a class of "profilePage-card" that contains an img element with the source set to the value of logoutImageUrl and alt text set to "Logout" and a class of "profilePage-cardImage" and a button element with the text "Logout" and an onClick event handler that calls the userLogout function.</li>
+              </ul>
+
+           
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

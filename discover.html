@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Books Page Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Discover Books Page Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Component: DiscoverBooksPage</h2>
+            
+            <h3>Dependencies</h3>
+            <p>React, react-responsive-carousel, react-router-dom</p>
+            
+            <h3>CSS Dependencies</h3>
+            <p>"DiscoverBooksPage.css", "react-responsive-carousel/lib/styles/carousel.min.css"</p>
+            
+            <h3>Imports</h3>
+            <code>
+                import React from "react";<br>
+                import { Carousel } from "react-responsive-carousel";<br>
+                import "./DiscoverBooksPage.css";<br>
+                import { useContext, useState } from "react";<br>
+                import { CartContext } from "./CartContext";<br>
+                import booksData from "./booksData";<br>
+                import { useNavigate } from "react-router-dom";
+            </code>
+
+            <h3>Description</h3>
+            <p>A component that displays a carousel of book banners, the best seller book, and a carousel of upcoming books. The component also has functionality to add books to the cart.</p>
+
+            <h3>State</h3>
+            <p>The state of this component includes:</p>
+            <ul>
+                <li>showPopup: A boolean to control the visibility of the added-to-cart popup.</li>
+            </ul>
+
+            <h3>Hooks</h3>
+            <p>This component uses the following React hooks:</p>
+            <ul>
+                <li>useContext to access the CartContext</li>
+                <li>useState to manage the showPopup state</li>
+                <li>useNavigate to navigate to different routes</li>
+            </ul>
+
+            <h3>Variables</h3>
+            <li><b>banner01 (string)</b>: Image URL for the book cover.</li>
+            <li><b>banner02 (string)</b>: Second Image URL for the book cover.</li>
+                <li> <b> book01 (string)</b>: Image URL for the first upcoming book.</li>
+                    <li> <b>book02 (string)</b> : Image URL for the second upcoming book.</li>
+                        <li>  <b>book03 (string)</b> : Image URL for the third upcoming book.</li>
+                            <li>  <b>book04 (string)</b>: Image URL for the fourth upcoming book.</li>
+                                <li> <b> book05 (string)</b>: Image URL for the fifth upcoming book.</li>
+                                    <li> <b> best (string)</b>: Image URL for the best seller book cover.</li>
+                                            <li> <b>navigate (function)</b>  : Navigates to a different route.</li>
+          
+
+            <h3>Functions</h3>
+            <p> <b>handleAddToCart</b> function to add books to the cart and show a popup confirmation.</p>
+
+            <h3>Rendered JSX</h3>
+            <p>The component is exported as default for use in other parts of the application.</p>
+            <pre><code>
+                &lt;div className=<span class="code-string">"discover-books-page"</span>&gt;
+                  &lt;div className=<span class="code-string">"dbanners"</span>&gt;
+                    &lt;Carousel
+                      className=<span class="code-string">"bookscarousel"</span>
+                      showArrows=<span class="code-literal">false</span>
+                      showStatus=<span class="code-literal">false</span>
+                      showThumbs=<span class="code-literal">false</span>
+                      autoPlay
+                      infiniteLoop
+                    &gt;
+                      &lt;div&gt;
+                        &lt;img src=&#123;banner01&#125; alt=<span class="code-string">"Banner 1"</span> /&gt;
+                      &lt;/div&gt;
+                      &lt;div&gt;
+                        &lt;img src=&#123;banner02&#125; alt=<span class="code-string">"Banner 2"</span> /&gt;
+                      &lt;/div&gt;
+                    &lt;/Carousel&gt;
+                  &lt;/div&gt;
+                  &lt;div className=<span class="code-string">"bestseller-intro"</span>&gt;
+                    &lt;h1&gt;Best Seller:&lt;/h1&gt;
+                  &lt;/div&gt;
+                  &lt;div className=<span class="code-string">"bestseller-container"</span>&gt;
+                    &lt;img
+                      src=&#123;best&#125;
+                      alt=<span class="code-string">"Best Seller Book Cover"</span>
+                      className=<span class="code-string">"bestseller-image"</span>
+                    /&gt;
+                    &lt;div className=<span class="code-string">"bestseller-description"</span>&gt;
+                      &lt;h3&gt;
+                        &lt;b&gt;&#123;bestSellerBook.title&#125;&lt;/b&gt;
+                      &lt;/h3&gt;
+                      &lt;p&gt;&#123;bestSellerBook.description&#125;&lt;/p&gt;
+                      &lt;h4&gt;Author: &#123;bestSellerBook.author&#125;&lt;/h4&gt;
+                      &lt;button
+                        className=<span class="code-string">"buy-now"</span>
+                        onClick=&#123;() =&gt; {
+                          addToCart(bestSellerBook);
+                          window.location.href = <span class="code-string">"https://a.co/d/5nQpJez"</span>;
+                        &#125;}
+                      &gt;
+                        Buy Now
+                      &lt;/button&gt;
+                      &lt;button className=<span class="code-string">"add-to-cart"</span> onClick=&#123;() =&gt; handleAddToCart(bestSellerBook)&#125;&gt;
+                        Add to Cart
+                      &lt;/button&gt;
+                      &#123;showPopup && &lt;div className=<span class="code-string">"cart-popup-message"</span>&gt;Item added to cart!&lt;/div&gt;&#125;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;hr style=&#123;&#123; border: <span class="code-string">"1px solid #ccc"</span>, width: <span class="code-string">"100%"</span> &#125;&#125; /&gt;
+                  &lt;div className=<span class="code-string">"lastcarousel"</span>&gt;
+                    &lt;div className=<span class="code-string">"upcoming-books-header"</span>&gt;
+                      &lt;b&gt;Upcoming Books:&lt;/b&gt;
+                    &lt;/div&gt;
+                    &lt;br&gt;&lt;br&gt;
+                    &lt;Carousel
+                      className=<span class="code-string">"upcomingcarousel"</span>
+                      showArrows=<span class="code-literal">false</span>
+                      showStatus=<span class="code-literal">false</span>
+                      showThumbs=<span class="code-literal">false</span>
+                      autoPlay
+                      infiniteLoop
+                    &gt;
+                      &lt;div className=<span class="code-string">"carousel-slide"</span>&gt;
+                        &lt;img src=&#123;book01&#125; alt=<span class="code-string">"Upcoming Book 1"</span> /&gt;
+                        &lt;img src=&#123;book02&#125; alt=<span class="code-string">"Upcoming Book 2"</span> /&gt;
+                      &lt;/div&gt;
+                      &lt;div className=<span class="code-string">"carousel-slide"</span>&gt;
+                        &lt;img src=&#123;book05&#125; alt=<span class="code-string">"Upcoming Book 5"</span> /&gt;
+                        &lt;img src=&#123;book04&#125; alt=<span class="code-string">"Upcoming Book 4"</span> /&gt;
+                      &lt;/div&gt;
+                      &lt;div className=<span class="code-string">"carousel-slide"</span>&gt;
+                        &lt;img src=&#123;book03&#125; alt=<span class="code-string">"Upcoming Book 3"</span> /&gt;
+                      &lt;/div&gt;
+                    &lt;/Carousel&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                </code></pre>
+
+             
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

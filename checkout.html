@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Checkout Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Checkout</h2>
+          <p>This is the documentation for the Checkout component.</p>
+          <h3>FUNCTIONALITY</h3>
+          <code>function Checkout() {
+            const { cart, getTotalPrice } = useContext(CartContext);
+            const [activeStep, setActiveStep] = useState(0);
+            const [addressInfo, setAddressInfo] = useState({});
+            const [paymentInfo, setPaymentInfo] = useState({});
+            const steps = ["Shipping address", "Payment details", "Review your order"];
+            const [orderDetails, setOrderDetails] = useState({
+              totalAmount: 0,
+              bookNames: [],
+            });
+          
+          
+          }</code>
+          <p>The component defines a function called Checkout that encapsulates the entire checkout functionality. It uses React hooks (useState, useContext) to manage state and retrieve data from the CartContext. It also initializes some state variables, such as activeStep, addressInfo, paymentInfo, steps, and orderDetails.</p>
+       <h3>ADDRESS AND PAYMENT HANDLING</h3>
+       <code>const handleAddressChange = (name, value) => {
+        setAddressInfo({ ...addressInfo, [name]: value });
+      };
+      
+      const handlePaymentChange = (name, value) => {
+        setPaymentInfo({ ...paymentInfo, [name]: value });
+      };
+      
+      const isAddressComplete = () => {
+        return (
+          addressInfo.firstName &&
+          addressInfo.lastName &&
+          addressInfo.address1 &&
+          addressInfo.city &&
+          addressInfo.zip &&
+          addressInfo.country
+        );
+      };
+      
+      const isPaymentComplete = () => {
+        return (
+          paymentInfo.cardName &&
+          paymentInfo.cardNumber &&
+          paymentInfo.expDate &&
+          paymentInfo.cvv
+        );
+      };</code>
+      <p>These are helper functions for handling address and payment changes. handleAddressChange and handlePaymentChange are responsible for updating the corresponding state variables when a change occurs. isAddressComplete and isPaymentComplete are used to check if all required address and payment fields are filled.</p>
+       
+    <h3>HANDLING ORDER PLACEMENT</h3>
+    <code>const handleOrderPlacement = async () => {
+        // Provide default values to prevent undefined values
+        const userEmail = addressInfo.email || "default@email.com";
+        const userName = `${addressInfo.firstName || "DefaultFirstName"} ${
+          addressInfo.lastName || "DefaultLastName"
+        }`;
+        const time = serverTimestamp() || new Date().toISOString();
+        const totalAmount = getTotalPrice() || 0;
+        const bookNames = cart.map((item) => item.title);
+      
+        // Check for undefined values and log
+        if (
+          !userEmail ||
+          !userName ||
+          totalAmount === undefined ||
+          !bookNames.length
+        ) {
+          console.error("Undefined field(s) found", {
+            userEmail,
+            userName,
+            totalAmount,
+            bookNames,
+          });
+          alert(
+            "There was an error with your order details. Please check and try again."
+          );
+          return;
+        }
+      
+        if (!isAddressComplete()) {
+          alert("Please fill in all required address fields.");
+          return;
+        }
+      
+        try {
+          await runTransaction(db, async (transaction) => {
+            const metadataRef = doc(db, "metadata", "orders");
+            const metadataDoc = await transaction.get(metadataRef);
+      
+            let newOrderId;
+            if (!metadataDoc.exists()) {
+              newOrderId = 1;
+              transaction.set(metadataRef, { lastOrderId: newOrderId });
+            } else {
+              newOrderId = metadataDoc.data().lastOrderId + 1;
+              transaction.update(metadataRef, { lastOrderId: newOrderId });
+            }
+      
+            const orderRef = doc(collection(db, "orders"));
+            transaction.set(orderRef, {
+              orderId: newOrderId,
+              displayName: userName,
+              email: userEmail,
+              address: addressInfo,
+              time: time,
+              totalAmount: totalAmount,
+              bookNames: bookNames,
+            });
+          });
+      
+          console.log("Order placed successfully.");
+        } catch (error) {
+          console.error("Error placing order:", error);
+          alert("There was an error placing your order. Please try again.");
+        }
+      };</code>
+      <p>This function is responsible for handling the placement of an order. It retrieves the necessary information from the state variables and performs some checks to ensure that all required fields are filled. It uses the runTransaction method from Firebase Firestore to perform an atomic transaction that writes the order details to the database.</p>
+    <h3>HANDLING NAVIGATION AND CONTENT</h3>
+    <code>const handleNext = () => {
+        if (activeStep === 0 && !isAddressComplete()) {
+          alert("Please fill in all required address fields.");
+          return;
+        }
+      
+        if (activeStep === 1 && !isPaymentComplete()) {
+          alert("Please fill in all required payment fields.");
+          return;
+        }
+      
+        if (activeStep === steps.length - 1) {
+          handleOrderPlacement();
+        }
+      
+        setActiveStep(activeStep + 1);
+      };
+      
+      const handleBack = () => {
+        setActiveStep(activeStep - 1);
+      };
+      
+      const getStepContent = (step) => {
+        switch (step) {
+          case 0:
+            return (
+              <AddressForm
+                addressInfo={addressInfo}
+                onChange={handleAddressChange}
+              />
+            );
+          case 1:
+            return (
+              <PaymentForm
+                paymentInfo={paymentInfo}
+                onChange={handlePaymentChange}
+              />
+            );
+          case 2:
+            return (
+              <Review
+                cartItems={cart}
+                total={getTotalPrice()}
+                addressInfo={addressInfo}
+                paymentInfo={paymentInfo}
+              />
+            );
+          default:
+            throw new Error("Unknown step");
+        }
+      };</code>
+      <p>These functions handle the navigation between steps and the content displayed for each step. handleNext is responsible for advancing to the next step, but it also performs checks to ensure that all required fields are filled before advancing. If the last step is reached, it calls the handleOrderPlacement function. handleBack is responsible for going back to the previous step. getStepContent takes the active step as input and returns the corresponding content for that step.</p>
+    
+    <h3>RENDERING THE COMPONENT</h3>
+    
+    <p>This is the JSX code that renders the component. It creates a container with a title, a stepper component that displays the current step, and the content for each step. If the last step is reached, it displays a thank you message. Otherwise, it displays the content for the current step and navigation buttons to go back or proceed to the next step.</p>
+    
+    </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

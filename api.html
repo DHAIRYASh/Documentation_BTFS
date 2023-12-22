@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Api Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Api Service</h2>
+           <p>This function is responsible for fetching analytics data from an API endpoint. It requires the following dependencies:</p>
+           <ul>
+            <li>axios: This is a promise-based HTTP client that will be used to make the API request.</li>
+            <li>getAuth: This is a function from the firebase/auth module that will be used to get the authentication object.</li>
+            <li>process: This is a global object that contains information about the current Node.js process.</li>   
+        </ul>
+
+        <h3>Usage</h3>
+        <p>To use this function, you need to import it and call it as a regular function. It does not require any arguments.</p>
+        <pre><code>
+            <span class="code-keyword">import</span> { fetchAnalyticsData } <span class="code-keyword">from</span> <span class="code-string">'path/to/file'</span>;
+        
+            <span class="code-comment">// Call the function</span>
+            <span class="code-function">fetchAnalyticsData</span>()
+                .<span class="code-function">then</span>(data =&gt; {
+                    <span class="code-comment">// Do something with the data</span>
+                    <span class="code-function">console.log</span>(data);
+                })
+                .<span class="code-function">catch</span>(error =&gt; {
+                    <span class="code-comment">// Handle the error</span>
+                    <span class="code-function">console.error</span>(error);
+                });
+        </code></pre>
+        <h3>ENVIRONMENT VARIABLES</h3>
+<p>This function uses an environment variable called REACT_APP_API_URL to determine the API endpoint.</p>  
+<h3>IMPLEMENTATION</h3>   
+<p>The function follows the following steps to fetch the analytics data:</p>   
+<ol>
+    <li>Initialize the auth object by calling getAuth().</li>
+    <li>Get the current user from the auth object</li>
+    <li>If no user is available, throw an error with the message "User not authenticated"</li>
+    <li>Get the user's ID token by calling user.getIdToken().</li>
+    <li>Make a GET request to the API endpoint specified by API_URL using axios.</li>
+    <li>Include the user's ID token in the Authorization header of the request.</li>
+    <li>If the request is successful, return the response data.</li>
+    <li>If an error occurs, log the error message and re-throw the error</li>
+</ol>
+<p>Note: The function is declared as an asynchronous function, which means it returns a promise. You can use the async/await syntax to handle the asynchronous behavior of the function.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

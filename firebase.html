@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Config Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Firebase Config Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Firebase Config</h2>
+       
+            <p>This code imports the necessary modules from the Firebase SDK and initializes Firebase with the provided configuration</p>
+
+            <h3>Usage</h3>
+            <pre><code>
+                <span class="code-keyword">import</span> { initializeApp } <span class="code-keyword">from</span> <span class="code-string">"firebase/app"</span>;
+                <span class="code-keyword">import</span> { getAnalytics } <span class="code-keyword">from</span> <span class="code-string">"firebase/analytics"</span>;
+                <span class="code-keyword">import</span> { getFirestore } <span class="code-keyword">from</span> <span class="code-string">"firebase/firestore"</span>;
+                <span class="code-keyword">import</span> { getAuth } <span class="code-keyword">from</span> <span class="code-string">"firebase/auth"</span>;
+            
+                <span class="code-comment">// Firebase configuration object</span>
+                <span class="code-keyword">const</span> firebaseConfig = {
+                    apiKey: <span class="code-string">"&lt;API_KEY&gt;"</span>,
+                    authDomain: <span class="code-string">"&lt;AUTH_DOMAIN&gt;"</span>,
+                    databaseURL: <span class="code-string">"&lt;DATABASE_URL&gt;"</span>,
+                    projectId: <span class="code-string">"&lt;PROJECT_ID&gt;"</span>,
+                    storageBucket: <span class="code-string">"&lt;STORAGE_BUCKET&gt;"</span>,
+                    messagingSenderId: <span class="code-string">"&lt;MESSAGING_SENDER_ID&gt;"</span>,
+                    appId: <span class="code-string">"&lt;APP_ID&gt;"</span>,
+                    measurementId: <span class="code-string">"&lt;MEASUREMENT_ID&gt;"</span>,
+                };
+            
+                <span class="code-comment">// Initialize Firebase</span>
+                <span class="code-keyword">const</span> app = <span class="code-function">initializeApp</span>(firebaseConfig);
+            </code></pre>
+            
+
+            <h3>Configuration Parameters</h3>
+            <ul>
+                <li><span class="function-name">apiKey (string):</span> The API key provided by Firebase for your project.</li>
+                <li><span class="function-name">authDomain (string):</span> The authentication domain of your Firebase project.</li>
+                <li><span class="function-name">databaseURL (string):</span> The URL of your Firebase Realtime Database.</li>
+                <li><span class="function-name">projectId (string):</span> The ID of your Firebase project.</li>
+                <li><span class="function-name">storageBucket (string):</span> The storage bucket URL for your Firebase project.</li>
+                <li><span class="function-name">messagingSenderId (string):</span> The sender ID for Firebase Cloud Messaging.</li>
+                <li><span class="function-name">appId (string):</span> The ID of your Firebase project's web application.</li>
+                <li><span class="function-name">measurementId (string):</span> The measurement ID for Firebase Analytics.</li>
+            </ul>
+            
+            <h3>FIREBASE ANALYTICS</h3>
+<p>This code initializes Firebase Analytics if the code is running in a browser environment.</p>
+            <h3>FIRESTORE</h3>
+<p>This code initializes Firestore using the Firebase app instance and exports the db object.</p>
+            <h3>FIREBASE AUTHENTICATION</h3>
+            <p>This code initializes and exports Firebase Authentication using the Firebase app instance</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

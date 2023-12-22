@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Data Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Book Data Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Book Data</h2>
+            <h4>DESCRIPTION</h4>
+            <p>The booksData.js file contains an array of book objects that represent different books. Each book object has the following properties:</p>
+            <ul>
+                <li><strong>id:</strong> The unique identifier of the book (number).</li>
+                <li><strong>title:</strong> The title of the book (string).</li>
+                <li><strong>author:</strong> The author of the book (string).</li>
+                <li><strong>description:</strong> A brief description of the book (string).</li>
+                <li><strong>price:</strong> The price of the book (string).</li>
+                <li><strong>cover:</strong> The URL of the book's cover image (string).</li>
+            </ul>
+            <h4>USAGE</h4>
+           <p>To use the booksData array, import it into your JavaScript file like this:</p> 
+           <code>import booksData from './booksData';</code>
+           <p>You can then access the array and its elements using standard JavaScript array operations</p>
+           <h4>EXAMPLE</h4>
+           <p>Here is an example of how you can access the booksData array and its elements in your code:</p>
+           <pre><code>
+            <span class="code-keyword">import</span> booksData <span class="code-keyword">from</span> <span class="code-string">'./booksData'</span>;
+        
+            <span class="code-comment">// Iterate over each book</span>
+            booksData.<span class="code-function">forEach</span>((book) =&gt; {
+                <span class="code-function">console.log</span>(<span class="code-string">`Title: ${book.title}`</span>);
+                <span class="code-function">console.log</span>(<span class="code-string">`Author: ${book.author}`</span>);
+                <span class="code-function">console.log</span>(<span class="code-string">`Price: ${book.price}`</span>);
+                <span class="code-function">console.log</span>(<span class="code-string">'---'</span>);
+            });
+        </code></pre>
+        <p>This will print the title, author, and price of each book in the booksData array.</p>
+        <h5>NOTES</h5>
+        <ul>
+            <li>The booksData array can be expanded by adding more book objects to it.</li>
+            <li>The cover property contains the URL of the book's cover image. It uses the process.env.PUBLIC_URL environment variable to provide the base URL for the image.</li>
+        </ul>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

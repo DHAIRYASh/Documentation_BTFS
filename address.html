@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Form Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Address Form Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Address Form</h2>
+        <p>This is a React component representing a form for entering a shipping address. It contains input fields for first name, last name, email address, address line 1, address line 2 (optional), city, state/province/region, zip/postal code, and country.</p>
+        <h3>USAGE</h3>
+        <code>import React, { useState } from "react";
+            import "./AddressForm.css";
+            
+            export default function AddressForm({ onChange }) {
+              // Component implementation
+            }</code>
+            <h3>PROPS</h3>
+            <p>onChange (function): A callback function that is triggered whenever the input fields in the form are changed. It takes two arguments: name (string) representing the name of the input field that was changed, and value (string) representing the new value of the input field.</p>
+    <h3>STATE</h3>
+    <p>emailValid (boolean): A state variable that represents whether the entered email address is valid or not.</p>
+    <h3>METHODS</h3>
+    <ul>
+       <li>handleInputChange(e: Event): void: A method that is called when an input field in the form is changed. It updates the state and triggers the onChange callback function.</li>
+        <li>validateEmail(email: string): boolean: A helper method that performs simple email validation using regular expression. It takes an email address as input and returns a boolean value indicating whether the email address is valid or not.</li>
+    </ul>
+    
+   <p>The input fields are rendered within a grid container with each field wrapped in a grid-item div.</p>
+   <h3>INPUT FIELDS</h3>
+   <ul>
+    <li><strong>firstName:</strong> Represents the first name input field.</li>
+    <li><strong>lastName:</strong> Represents the last name input field.</li>
+    <li><strong>email:</strong> Represents the email address input field. It has an additional invalid class applied if the entered email is not valid.</li>
+    <li><strong>address1:</strong> Represents the address line 1 input field.</li>
+    <li><strong>address2:</strong> Represents the address line 2 input field (optional).</li>
+    <li><strong>city:</strong> Represents the city input field.</li>
+    <li><strong>state:</strong> Represents the state/province/region input field.</li>
+    <li><strong>zip:</strong> Represents the zip/postal code input field.</li>
+    <li><strong>country:</strong> Represents the country input field.</li>
+</ul>
+    
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

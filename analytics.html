@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Analytics Dashboard Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Analytics Dashboard</h2>
+           <p>This component is used to display the analytics data of a dashboard using React. It fetches the necessary data from an API service and renders various components to display the data.</p>
+        <h4>IMPORT STATEMENTS</h4>
+        <pre><code>
+            <span class="code-keyword">import</span> React, { useState, useEffect } <span class="code-keyword">from</span> <span class="code-string">"react"</span>;
+            <span class="code-keyword">import</span> { fetchAnalyticsData } <span class="code-keyword">from</span> <span class="code-string">"../../apiService"</span>;
+            <span class="code-keyword">import</span> NewUsersChart <span class="code-keyword">from</span> <span class="code-string">"./NewUsersChart"</span>;
+            <span class="code-keyword">import</span> TotalUsersBox <span class="code-keyword">from</span> <span class="code-string">"./TotalUsersBox"</span>;
+            <span class="code-keyword">import</span> ActiveUsersTodayBox <span class="code-keyword">from</span> <span class="code-string">"./ActiveUsersTodayBox"</span>;
+            <span class="code-keyword">import</span> <span class="code-string">"./Dashboard.css"</span>;
+            <span class="code-keyword">import</span> Sidebar <span class="code-keyword">from</span> <span class="code-string">"./Slidebar"</span>;
+        </code></pre>
+        <ul>
+            <li><span class="code-function">React</span> is imported from the react package to make use of React functionalities.</li>
+            <li><span class="code-function">useState</span> and <span class="code-function">useEffect</span> are imported from the react package to handle state and side effects respectively.</li>
+            <li><span class="code-function">fetchAnalyticsData</span> is imported from the <span class="code-function">apiService</span> module to retrieve analytics data from the API.</li>
+            <li><span class="code-function">NewUsersChart</span>, <span class="code-function">TotalUsersBox</span>, and <span class="code-function">ActiveUsersTodayBox</span> are imported from their respective files to render the components related to analytics data.</li>
+            <li><span class="code-function">./Dashboard.css</span> is imported to apply custom styling to the Dashboard component.</li>
+            <li><span class="code-function">Sidebar</span> is imported to render a sidebar component.</li>
+        </ul>
+        <h4>COMPONENT</h4>
+        <p>This is the main component that renders the analytics dashboard.</p>
+        <pre><code>
+            <span class="code-keyword">const</span> AnalyticsDashboard = () =&gt; {
+                <span class="code-comment">// State variables</span>
+                <span class="code-keyword">const</span> [analytics, setAnalytics] = <span class="code-function">useState</span>({
+                    totalUsers: 0,
+                    activeUsersToday: 0,
+                    newUsersThisWeek: [],
+                });
+                <span class="code-keyword">const</span> [isLoading, setIsLoading] = <span class="code-function">useState</span>(<span class="code-literal">true</span>);
+                <span class="code-keyword">const</span> [error, setError] = <span class="code-function">useState</span>(<span class="code-literal">null</span>);
+        
+                <span class="code-comment">// Fetch analytics data and update state</span>
+                <span class="code-function">useEffect</span>(() =&gt; {
+                    <span class="code-keyword">const</span> loadData = <span class="code-keyword">async</span> () =&gt; {
+                        <span class="code-keyword">try</span> {
+                            setIsLoading(<span class="code-literal">true</span>);
+                            <span class="code-keyword">const</span> data = <span class="code-keyword">await</span> <span class="code-function">fetchAnalyticsData</span>();
+                            setAnalytics(data);
+                            setIsLoading(<span class="code-literal">false</span>);
+                        } <span class="code-keyword">catch</span> (error) {
+                            setError(error);
+                            setIsLoading(<span class="code-literal">false</span>);
+                        }
+                    };
+                    loadData();
+                }, []);
+        
+                <span class="code-comment">// Render loading state</span>
+                <span class="code-keyword">if</span> (isLoading) {
+                    <span class="code-keyword">return</span> &lt;div&gt;Loading data...&lt;/div&gt;;
+                }
+        
+                <span class="code-comment">// Render error state</span>
+                <span class="code-keyword">if</span> (error) {
+                    <span class="code-keyword">return</span> &lt;div&gt;Error fetching data: {'{'}error.message}&lt;/div&gt;;
+                }
+        
+                <span class="code-function">console.log</span>(<span class="code-string">"Analytics"</span> + analytics);
+        
+                <span class="code-comment">// Render analytics dashboard components</span>
+                <span class="code-keyword">return</span> (
+                    &lt;div className=<span class="code-string">"dashboard-container"</span>&gt;
+                        &lt;Sidebar /&gt;
+                        &lt;div className=<span class="code-string">"dashboard-content"</span>&gt;
+                            &lt;div className=<span class="code-string">"chart-container"</span>&gt;
+                                &lt;NewUsersChart newUsersData={'{'}analytics.newUsersThisWeek} /&gt;
+                                &lt;TotalUsersBox totalUsers={'{'}analytics.totalUsers} /&gt;
+                            &lt;/div&gt;
+                            &lt;div className=<span class="code-string">"user-info-section"</span>&gt;
+                                &lt;ActiveUsersTodayBox activeUsers={'{'}analytics.activeUsersToday} /&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                );
+            };
+        </code></pre>
+        
+        <h4>State Variables</h4>
+        <ul>
+            <li>analytics is the state variable that stores the analytics data, including totalUsers, activeUsersToday, and newUsersThisWeek. It is initialized with default values.</li>
+            <li>isLoading is the state variable that tracks whether the data is being loaded or not. It is initially set to true.</li>
+            <li>error is the state variable that stores any error that occurs while fetching the data. It is initially set to null.</li>
+        </ul>
+        <h4>useEffect()</h4>
+        <ul>
+            <li>The useEffect hook is used to fetch the analytics data asynchronously when the component mounts.</li>
+            <li>Inside the useEffect hook, an async function loadData is defined which fetches the data using the fetchAnalyticsData function from the API service.</li>
+            <li>If the data is fetched successfully, the state variables analytics and isLoading are updated accordingly.</li>
+            <li>If an error occurs during the data fetching process, the state variables error and isLoading are updated accordingly.</li>
+        </ul>
+        <h4>Conditional Rendering</h4>
+        <ul>
+            <li>If the isLoading state variable is true, a loading message is rendered.</li>
+            <li>If the error state variable is not null, an error message is rendered indicating the error message.</li>
+            <li>Otherwise, the dashboard components are rendered, which include a sidebar, a chart container, and a user info section.</li>
+        </ul>
+        <h4>Component Markup</h4>
+        <ul>
+            <li>The component container has a class name of <span class="code-function">"dashboard-container"</span>.</li>
+            <li>A <span class="code-function">&lt;Sidebar /&gt;</span> component is rendered as a sidebar.</li>
+            <li>The main content of the dashboard is wrapped in a <span class="code-function">&lt;div&gt;</span> with a class name of <span class="code-function">"dashboard-content"</span>.</li>
+            <li>The chart container consists of a <span class="code-function">&lt;NewUsersChart /&gt;</span> component and a <span class="code-function">&lt;TotalUsersBox /&gt;</span> component.</li>
+            <li>The user info section consists of an <span class="code-function">&lt;ActiveUsersTodayBox /&gt;</span> component.</li>
+        </ul>
+        
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

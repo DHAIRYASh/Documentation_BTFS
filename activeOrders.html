@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Orders Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Active Orders Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Active Orders</h2>
+          <p>This component displays a list of orders fetched from the "orders" collection in the Firestore database.</p>
+          <h3>DEPENDENCIES</h3>
+          <ul>
+            <li>React</li>
+            <li>useState</li>
+            <li>useEffect</li>
+            <li>Firebase (Firestore)</li>
+            <li>"./Slidebar" Component (make sure the path is correct)</li>
+            <li>"./Orders.css" Stylesheet</li>
+        </ul>
+            <h3>METHODS</h3>
+            <a> <b  class="function-name">formatDate(timestamp)</b>
+                <p>This method takes a timestamp and returns the formatted date in "MM/DD/YYYY" format.
+                    <br>
+                    Parameters: timestamp (Timestamp): The timestamp to format.
+                    <br>
+                <p>Returns:
+
+                    Formatted date (String)</p></p></a>
+                    <a>
+                        <b class="function-name">formatTime(timestamp)</b>
+                        <p>This method takes a timestamp and returns the formatted time in "HH:MM:SS AM/PM" format.
+                            <br>
+                            Parameters: timestamp (Timestamp): The timestamp to format.
+                            <br>
+                            Returns:
+                            Formatted time (String)
+                        </p>
+                      </a>
+                      <a>
+                        <b class="function-name">formatAddress(address)</b>
+                        <p>This method takes an address object and returns the formatted address string.
+                            <br>
+                            Parameters: address (Object): The address object to format.
+                            <br>
+                            Returns:
+                            Formatted address (String)
+                        </p>
+                      </a>
+                      <a>
+                        <b class="function-name">fetchOrders()</b>
+                        <p>This method is called inside the useEffect hook to fetch the orders from the Firestore "orders" collection.</p>
+                      </a>
+                      <h3>useEffect</h3>
+                      <p>The useEffect hook is used to fetch the orders from the Firestore database when the component mounts. It calls the fetchOrders method and updates the orders state with the fetched data.</p>
+          <h4>RENDERED OUTPUT</h4>
+         <p>The component renders a table containing the list of orders. Each order is displayed in a table row with the following columns:</p>
+          <ul>
+            <li>Serial Number (S/N)</li>
+            <li>Email</li>
+            <li>Name</li>
+            <li>Address</li>
+            <li>Date</li>
+            <li>Time</li>
+            <li>Order ID</li>
+            <li>Book Names</li>
+            <li>Total Amount</li>
+        </ul>
+
+       
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

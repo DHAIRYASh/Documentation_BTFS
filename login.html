@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Component Documentation</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header>
+        <h1>LoginPage Component Documentation</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+
+    <main>
+        <section>
+            <h2>Description</h2>
+            <p>This component represents the login page of a React application. It provides a form for users to enter their email and password to log into the application. It also includes options for logging in with Google. The component uses Firebase for authentication and Firestore for storing user data.</p>
+        </section>
+
+        <section>
+            <h2>Import Statements</h2>
+            <pre><code>
+                <span class="code-keyword">import</span> React, { useState } <span class="code-keyword">from</span> <span class="code-string">"react"</span>;
+                <span class="code-keyword">import</span> <span class="code-string">"./LoginPage.css"</span>;
+                <span class="code-keyword">import</span> { Link, useNavigate } <span class="code-keyword">from</span> <span class="code-string">"react-router-dom"</span>;
+                <span class="code-keyword">import</span> { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, OAuthProvider, getRedirectResult, sendPasswordResetEmail } <span class="code-keyword">from</span> <span class="code-string">"firebase/auth"</span>;
+                <span class="code-keyword">import</span> { doc, getDoc, serverTimestamp, updateDoc } <span class="code-keyword">from</span> <span class="code-string">"firebase/firestore"</span>;
+                <span class="code-keyword">import</span> { db } <span class="code-keyword">from</span> <span class="code-string">"../config/firebase-config"</span>;
+                <span class="code-keyword">import</span> { useAuth } <span class="code-keyword">from</span> <span class="code-string">"../config/AuthContext"</span>;
+            </code></pre>
+        </section>
+        <section>
+            <h2>Functional Component</h2>
+            <p>The LoginPage functional component manages user login, including handling state for user credentials and authentication processes. Below are the key aspects of this component:</p>
+
+            <pre><code>
+        function <span class="code-keyword">LoginPage</span>() {
+          <span class="code-comment">// State variables</span>
+          const [showPassword, setShowPassword] = <span class="code-keyword">useState</span>(<span class="code-literal">false</span>);
+          const [email, setEmail] = <span class="code-keyword">useState</span>(<span class="code-string">""</span>);
+          const [password, setPassword] = <span class="code-keyword">useState</span>(<span class="code-string">""</span>);
+          const [error, setError] = <span class="code-keyword">useState</span>(<span class="code-string">""</span>);
+          const [resetEmailStatus, setResetEmailStatus] = <span class="code-keyword">useState</span>(<span class="code-string">""</span>);
+        
+          <span class="code-comment">// Helper functions</span>
+          const clearConsoleCache = () => {
+            <span class="code-keyword">console</span>.clear();
+          };
+        
+          const handleGoogleLogin = () => {
+            <span class="code-comment">// Handling Google login</span>
+          };
+        
+          const handleForgotPassword = () => {
+            <span class="code-comment">// Handling forgot password functionality</span>
+          };
+        
+          const handleLogin = () => {
+            <span class="code-comment">// Handling login with email and password</span>
+          };
+        
+          const handleKeyPress = (e) => {
+            <span class="code-comment">// Handling enter key press event</span>
+          };
+        
+          <span class="code-comment">// Rendering the component</span>
+          return (
+            &lt;div className=<span class="code-string">"login-container"</span>&gt;
+              <span class="code-comment">{/* JSX content */}</span>
+            &lt;/div&gt;
+          );
+        }
+        
+        <span class="code-keyword">export default</span> LoginPage;
+            </code></pre>
+        </section>
+        
+        <section>
+         
+            <h3>State Variables</h3>
+            <ul>
+                <li><b>showPassword</b>: A boolean variable to toggle password visibility in the input field.</li>
+                <li><b>email</b>: A string variable to store the user's email address.</li>
+                <li><b>password</b> A string variable to store the user's password.</li>
+                <li><b>error</b>: A string variable to store any error message during the login process.</li>
+                <li><b>resetEmailStatus</b>: A string variable to store the status of the password reset email.</li>
+            </ul>
+
+            <h3>Helper Functions</h3>
+            <dl>
+                <b  class="function-name">clearConsoleCache()</b>
+                <p>This function clears the console cache.</p>
+
+                <b class="function-name">handleGoogleLogin()</b>
+                <p>This function handles the login with Google functionality. It uses the GoogleAuthProvider from firebase/auth to create a provider object and then calls the signInWithPopup function to initiate the login process. After successfully logging in, it checks if the user exists in Firestore and updates the last active timestamp. It also sets the current user data in the application's global state using the setCurrentUser function from the AuthContext provided by the useAuth hook. Finally, it navigates the user to the home page.</p>
+
+                <b class="function-name">handleForgotPassword()</b>
+                <p>This function handles the forgot password functionality. It first checks if the email field is empty and displays an error message if it is. Otherwise, it calls the sendPasswordResetEmail function from firebase/auth to send a password reset email to the provided email address. It displays a success or error message based on the result.</p>
+
+                <b class="function-name">handleLogin()</b>
+                <p>This function handles the login with email and password functionality. It calls the signInWithEmailAndPassword function from firebase/auth to authenticate the user using the provided email and password. After successful login, it updates the last active timestamp in Firestore and fetches the user details from Firestore. If the user exists in Firestore, it sets the current user data in the application's global state using the setCurrentUser function from the AuthContext provided by the useAuth hook. If no additional user details are present in Firestore, it only sets the basic user details. Finally, it navigates the user to the home page.</p>
+
+                <b class="function-name">handleKeyPress(e)</b>
+                <p>This function handles the enter key press event on the password input field. If the enter key is pressed, it calls the handleLogin function to initiate the login process.</p>
+            </dl>
+
+            <h3>JSX Content</h3>
+            <p>The JSX content inside the render function represents the visual elements and user interface of the login page. It includes HTML elements like div, h2, input, label, button, span, and Link components from react-router-dom. The page also includes CSS styling and uses class names from the LoginPage.css file. The content includes:</p>
+            <ul>
+                <li>A container for the login form.</li>
+                <li>An image for the background.</li>
+                <li>Input fields for email and password.</li>
+                <li>Toggle password visibility button.</li>
+                <li>Forgot password link.</li>
+                <li>Home icon link.</li>
+                <li>Login button.</li>
+                <li>Alternative login options (e.g., login with Google).</li>
+                <li>Create account link.</li>
+                <li>Error message display.</li>
+            </ul>
+            <p>The visual elements are styled using CSS classes defined in the LoginPage.css file.</p>
+        </section>
+
+        <section>
+            <h2>Component Export</h2>
+            <p>The LoginPage component is exported as the default component for use in other parts of the application.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

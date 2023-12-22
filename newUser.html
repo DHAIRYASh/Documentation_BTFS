@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard New User Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Dashboard New User Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Dashboard New User</h2>
+         <h3>Import Statements</h3>
+         <pre><code>
+            import React, { useEffect, useState } from "react";
+            import {
+              LineChart,
+              Line,
+              XAxis,
+              YAxis,
+              CartesianGrid,
+              Tooltip,
+              Legend,
+              ResponsiveContainer,
+              Label,
+            } from "recharts";
+            import { collection, getDocs } from "firebase/firestore";
+            import { db } from "../../config/firebase-config";
+                        </code></pre>
+                        <h3>Functional Component</h3>
+                        <p>This is a functional component called NewUsersChart that uses React's useState and useEffect hooks to fetch and process data from a Firestore database. It uses the recharts library to render a line chart.</p>
+                        <pre><code>
+                            <span class="code-keyword">const</span> NewUsersChart = () =&gt; {
+                                <span class="code-keyword">const</span> [chartData, setChartData] = <span class="code-function">useState</span>([]);
+                            
+                                <span class="code-function">useEffect</span>(() =&gt; {
+                                    <span class="code-keyword">const</span> fetchData = <span class="code-keyword">async</span> () =&gt; {
+                                        <span class="code-keyword">const</span> querySnapshot = <span class="code-keyword">await</span> <span class="code-function">getDocs</span>(<span class="code-function">collection</span>(db, <span class="code-string">"users"</span>));
+                                        <span class="code-keyword">const</span> processedData = <span class="code-function">processUserData</span>(querySnapshot);
+                                        setChartData(processedData);
+                                    };
+                            
+                                    fetchData();
+                                }, []);
+                            
+                                <span class="code-keyword">const</span> processUserData = (querySnapshot) =&gt; {
+                                    <span class="code-keyword">const</span> registrationCounts = {};
+                            
+                                    querySnapshot.forEach((doc) =&gt; {
+                                        <span class="code-keyword">const</span> data = doc.data();
+                                        <span class="code-keyword">const</span> registrationDate = data.registrationDate?.<span class="code-function">toDate</span>();
+                                        <span class="code-keyword">if</span> (registrationDate) {
+                                            <span class="code-keyword">const</span> dateStr = registrationDate.<span class="code-function">toISOString</span>().split(<span class="code-string">"T"</span>)[0];
+                                            registrationCounts[dateStr] = (registrationCounts[dateStr] || 0) + 1;
+                                        }
+                                    });
+                            
+                                    <span class="code-keyword">const</span> chartArray = <span class="code-function">Object.keys</span>(registrationCounts).map((date) =&gt; ({
+                                        date,
+                                        newUsers: registrationCounts[date],
+                                    }));
+                            
+                                    chartArray.<span class="code-function">sort</span>((a, b) =&gt; <span class="code-function">new</span> Date(a.date) - <span class="code-function">new</span> Date(b.date));
+                            
+                                    <span class="code-keyword">return</span> chartArray;
+                                };
+                            
+                                <span class="code-keyword">return</span> (
+                                    &lt;<span class="code-function">ResponsiveContainer</span> width=<span class="code-string">"100%"</span> height={250}&gt;
+                                        &lt;<span class="code-function">LineChart</span>
+                                            data={chartData}
+                                            margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                                            style={{ background: <span class="code-string">"#FFFFFF"</span> }}
+                                        &gt;
+                                            &lt;<span class="code-function">CartesianGrid</span> strokeDasharray=<span class="code-string">"3 3"</span> /&gt;
+                                            &lt;<span class="code-function">XAxis</span> dataKey=<span class="code-string">"date"</span>&gt;
+                                                &lt;<span class="code-function">Label</span> value=<span class="code-string">"Date"</span> offset={-10} position=<span class="code-string">"insideBottom"</span> /&gt;
+                                            &lt;/<span class="code-function">XAxis</span>&gt;
+                                            &lt;<span class="code-function">YAxis</span> allowDecimals={false}&gt;
+                                                &lt;<span class="code-function">Label</span> value=<span class="code-string">"New Users"</span> angle={-90} position=<span class="code-string">"insideLeft"</span> /&gt;
+                                            &lt;/<span class="code-function">YAxis</span>&gt;
+                                            &lt;<span class="code-function">Tooltip</span> /&gt;
+                                            &lt;<span class="code-function">Legend</span> /&gt;
+                                            &lt;<span class="code-function">Line</span>
+                                                type=<span class="code-string">"monotone"</span>
+                                                dataKey=<span class="code-string">"newUsers"</span>
+                                                stroke=<span class="code-string">"#8884d8"</span>
+                                                activeDot={{ r: 8 }}
+                                            /&gt;
+                                        &lt;/<span class="code-function">LineChart</span>&gt;
+                                    &lt;/<span class="code-function">ResponsiveContainer</span>&gt;
+                                );
+                            };
+                            
+                            <span class="code-keyword">export default</span> NewUsersChart;
+                            </code></pre>
+                            
+        <h4>useState</h4>
+        <p>chartData: State variable for storing the processed data for the chart. It is initialized as an empty array.</p>
+        <h4>useEffect</h4>
+        <ul>
+            <li>The useEffect hook is used to fetch the data from the Firestore database and process it once when the component is mounted</li>
+            <li>It calls the fetchData function, which is an asynchronous function that fetches the collection of "users" using the getDocs function from firebase/firestore. It then calls the processUserData function to process the fetched data into the required format for the chart, and finally sets the chartData state variable with the processed data.</li>
+        </ul>
+        <h4>processUserData</h4>
+        <ul>
+            <li>This function takes a querySnapshot as input and processes the user data to count the number of new users per date</li>
+        <li>It initializes an empty object registrationCounts to store the registration count for each date.</li>
+        <li>It iterates through each document in the querySnapshot and extracts the registrationDate from the data. If the registrationDate exists, it converts it to a date string in the format "YYYY-MM-DD" and increments the registration count for that date in the registrationCounts object.</li>
+    <li>It then converts the registrationCounts object into an array of objects with date and newUsers properties using Object.keys and Array.map.</li>    
+    <li>It sorts the array in ascending order based on the date using the Array.sort method.</li>
+    <li>Finally, it returns the processed array of objects.</li>
+    </ul>
+    <h4>Return Statement</h4>
+    <ul>
+        <li>The component returns a ResponsiveContainer component from recharts with a width of "100%" and a fixed height of 250 pixels.</li>
+        <li>Inside the ResponsiveContainer, there is a LineChart component from recharts that receives the chartData as the data prop, and margin, and style props for customization.</li>
+    <li>The LineChart contains other components like CartesianGrid, XAxis, YAxis, Tooltip, Legend, and a Line.</li>
+    <li>The XAxis component displays the date values from the chartData using the dataKey prop, and a Label component for the label "Date" positioned inside the bottom of the axis.</li>
+    <li>The YAxis component displays the new user values from the chartData using the dataKey prop, and a Label component for the label "New Users" positioned inside the left of the axis.</li>
+    <li>The Tooltip component enables tooltip functionality for the chart.</li>
+    <li>The Legend component displays a legend for the chart.</li>
+    <li>The Line component is the line that represents the data on the chart. It receives the dataKey, stroke, and activeDot props for customization.</li>
+    </ul>
+        
+                    </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>

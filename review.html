@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Form Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Review Form Documentation</h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">Back to Main Documentation</a>
+    </nav>
+    
+    <main>
+        <section>
+            <h2>Review Form</h2>
+            <p>This component displays the order review, including shipping address, payment details, order items, and total amount.</p>
+            <ul>
+                <li>React</li>
+                <li>useContext from React</li>
+                <li>"./Review.css" (CSS file)</li>
+                <li>CartContext from "./CartContext" (Adjust the import path as needed)</li>
+                <li>booksData from "./booksData" (Make sure to adjust the import path as needed)</li>
+            </ul>
+            <h3>PROPS</h3>
+            <ul>
+                <li><strong>cartItems:</strong> The items in the cart (array)</li>
+                <li><strong>total:</strong> The total amount of the order (number)</li>
+                <li><strong>addressInfo:</strong> The shipping address information (object)</li>
+                <li><strong>firstName:</strong> The first name of the recipient (string)</li>
+                <li><strong>lastName:</strong> The last name of the recipient (string)</li>
+                <li><strong>address1:</strong> The first line of the address (string)</li>
+                <li><strong>city:</strong> The city of the address (string)</li>
+                <li><strong>zip:</strong> The zip code of the address (string)</li>
+                <li><strong>country:</strong> The country of the address (string)</li>
+                <li><strong>paymentInfo:</strong> The payment details (object)</li>
+                <li><strong>cardName:</strong> The name on the card (string)</li>
+                <li><strong>cardNumber:</strong> The card number (string)</li>
+                <li><strong>expDate:</strong> The expiration date of the card (string)</li>
+            </ul>
+            <h3>EXAMPLE</h3>
+            <pre><code>
+                <span class="code-keyword">import</span> React <span class="code-keyword">from</span> <span class="code-string">"react"</span>;
+                <span class="code-keyword">import</span> Review <span class="code-keyword">from</span> <span class="code-string">"./Review"</span>;
+                
+                <span class="code-keyword">const</span> cartItems = [
+                  {
+                    id: 1,
+                    title: <span class="code-string">"Book 1"</span>,
+                    quantity: 1,
+                    price: 10.99
+                  },
+                  {
+                    id: 2,
+                    title: <span class="code-string">"Book 2"</span>,
+                    quantity: 2,
+                    price: 15.99
+                  }
+                ];
+                
+                <span class="code-keyword">const</span> total = 42.97;
+                
+                <span class="code-keyword">const</span> addressInfo = {
+                  firstName: <span class="code-string">"John"</span>,
+                  lastName: <span class="code-string">"Doe"</span>,
+                  address1: <span class="code-string">"123 Main St"</span>,
+                  city: <span class="code-string">"New York"</span>,
+                  zip: <span class="code-string">"10001"</span>,
+                  country: <span class="code-string">"USA"</span>
+                };
+                
+                <span class="code-keyword">const</span> paymentInfo = {
+                  cardName: <span class="code-string">"John Doe"</span>,
+                  cardNumber: <span class="code-string">"4111111111111111"</span>,
+                  expDate: <span class="code-string">"12/22"</span>
+                };
+                
+                <span class="code-function">function</span> App() {
+                  <span class="code-keyword">return</span> (
+                    &lt;<span class="code-keyword">div</span>&gt;
+                      &lt;<span class="code-keyword">h1</span>&gt;Order Review&lt;/<span class="code-keyword">h1</span>&gt;
+                      &lt;Review cartItems={cartItems} total={total} addressInfo={addressInfo} paymentInfo={paymentInfo} /&gt;
+                    &lt;/<span class="code-keyword">div</span>&gt;
+                  );
+                }
+                
+                <span class="code-keyword">export default</span> App;
+                </code></pre>
+                            
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 BTFS. All rights reserved.</p>
+    </footer>
+</body>
+</html>
